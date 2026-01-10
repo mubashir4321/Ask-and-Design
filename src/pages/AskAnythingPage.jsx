@@ -222,7 +222,7 @@ const AskAnythingPage = () => {
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder="Type your message here..."
+            placeholder="Ask Anything"
             className="message-input"
           />
           

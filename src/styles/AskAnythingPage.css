@@ -160,6 +160,10 @@
 .chat-input-area {
   padding-top: 20px;
   border-top: 1px solid var(--border-color);
+  /* Make the prompt bar span full width */
+  max-width: none;
+  width: 100%;
+  margin: 0;
 }
 
 .attached-files {
@@ -196,6 +200,7 @@
   display: flex;
   align-items: flex-end;
   gap: 10px;
+  width: 100%;
 }
 
 .upload-btn, .send-btn {
@@ -234,6 +239,12 @@
   font-family: inherit;
   font-size: 1rem;
   outline: none;
+}
+
+/* Center only the placeholder (Ask Anything) text; keep typed text left-aligned */
+.message-input::placeholder {
+  text-align: center;
+  color: var(--text-tertiary);
 }
 
 .message-input:focus {
