@@ -33,39 +33,68 @@ const AskAnythingPage = () => {
         files: [...files]
       };
       
+      // Check if the question is about IPO
+      const isIPOQuestion = inputValue.toLowerCase().includes('ipo') || inputValue.toLowerCase().includes('what is ipo') || inputValue.toLowerCase().includes('what is ipo in image');
+      const isDetailedPDFRequest = inputValue.toLowerCase().includes('explain ipo in detailed in pdf');
+      const isGeneralIPOQuestion = inputValue.toLowerCase().includes('what is ipo') && !inputValue.toLowerCase().includes('in image');
+      
+      // Add user message to the chat
       setMessages(prev => [...prev, newUserMessage]);
       setFiles([]);
       setInputValue('');
-
-      // Check if the question is about IPO
-      const isIPOQuestion = inputValue.toLowerCase().includes('ipo') || inputValue.toLowerCase().includes('what is ipo') || inputValue.toLowerCase().includes('what is ipo in image');
       
       if (isIPOQuestion && inputValue.toLowerCase().includes('what is ipo in image')) {
         // For the specific image request, show the image
-        const aiResponse = {
-          id: messages.length + 2,
-          text: 'Here is the IPO image:',
-          sender: 'ai',
-          timestamp: new Date(),
-          image: IPOImage
-        };
-        
-        setMessages(prev => [...prev, newUserMessage, aiResponse]);
-        setFiles([]);
-        setInputValue('');
+        // Show the response after a delay to simulate thinking
+        setTimeout(() => {
+          const aiResponse = {
+            id: messages.length + 2,
+            text: 'Here is the IPO image:',
+            sender: 'ai',
+            timestamp: new Date(),
+            image: IPOImage
+          };
+          setMessages(prev => [...prev, aiResponse]);
+        }, 7000); // 7 seconds delay to simulate thinking
+      } else if (isGeneralIPOQuestion) {
+        // For general IPO questions, show the IPO image
+        // Show the response after a delay to simulate thinking
+        setTimeout(() => {
+          const aiResponse = {
+            id: messages.length + 2,
+            text: 'Here is the IPO image:',
+            sender: 'ai',
+            timestamp: new Date(),
+            image: IPOImage
+          };
+          setMessages(prev => [...prev, aiResponse]);
+        }, 7000); // 7 seconds delay to simulate thinking
+      } else if (isDetailedPDFRequest) {
+        // For detailed PDF request, show the ipo.pdf
+        // Show the response after a delay to simulate thinking
+        setTimeout(() => {
+          const aiResponse = {
+            id: messages.length + 2,
+            text: 'Here is the detailed explanation about IPO in PDF format:',
+            sender: 'ai',
+            timestamp: new Date(),
+            pdf: IPDPDF
+          };
+          setMessages(prev => [...prev, aiResponse]);
+        }, 7000); // 7 seconds delay to simulate thinking
       } else if (isIPOQuestion) {
         // For other IPO questions, show the PDF
-        const aiResponse = {
-          id: messages.length + 2,
-          text: 'Here is information about IPO:',
-          sender: 'ai',
-          timestamp: new Date(),
-          pdf: IPDPDF
-        };
-        
-        setMessages(prev => [...prev, newUserMessage, aiResponse]);
-        setFiles([]);
-        setInputValue('');
+        // Show the response after a delay to simulate thinking
+        setTimeout(() => {
+          const aiResponse = {
+            id: messages.length + 2,
+            text: 'Here is information about IPO:',
+            sender: 'ai',
+            timestamp: new Date(),
+            pdf: IPDPDF
+          };
+          setMessages(prev => [...prev, aiResponse]);
+        }, 7000); // 7 seconds delay to simulate thinking
       } else {
         // Simulate AI response after a delay
         setTimeout(() => {
@@ -75,9 +104,7 @@ const AskAnythingPage = () => {
             sender: 'ai',
             timestamp: new Date()
           };
-          setMessages(prev => [...prev, newUserMessage, aiResponse]);
-          setFiles([]);
-          setInputValue('');
+          setMessages(prev => [...prev, aiResponse]);
         }, 1000);
       }
     }
