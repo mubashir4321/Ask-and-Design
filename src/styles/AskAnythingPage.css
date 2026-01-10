@@ -80,6 +80,51 @@
   line-height: 1.5;
 }
 
+.pdf-response {
+  margin-top: 10px;
+}
+
+.pdf-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.pdf-preview {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.pdf-preview:hover {
+  background-color: var(--bg-secondary);
+}
+
+.pdf-icon {
+  font-size: 2rem;
+  margin-right: 12px;
+}
+
+.pdf-info {
+  flex: 1;
+}
+
+.pdf-name {
+  font-weight: bold;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.pdf-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
 .message-files {
   margin-top: 8px;
   display: flex;

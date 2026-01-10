@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FiPlus, FiMaximize, FiSend, FiX } from 'react-icons/fi';
+import IPDPDF from '../assets/pdfs/ipo.pdf';
 import '../styles/AskAnythingPage.css';
 
 const AskAnythingPage = () => {
@@ -37,12 +38,28 @@ const AskAnythingPage = () => {
 
       // Simulate AI response after a delay
       setTimeout(() => {
-        const aiResponse = {
-          id: messages.length + 2,
-          text: `I received your message: "${inputValue}". This is a simulated response.`,
-          sender: 'ai',
-          timestamp: new Date()
-        };
+        let aiResponse;
+        
+        // Check if the question is about IPO
+        const isIPOQuestion = inputValue.toLowerCase().includes('ipo') || inputValue.toLowerCase().includes('what is ipo');
+        
+        if (isIPOQuestion) {
+          aiResponse = {
+            id: messages.length + 2,
+            text: 'Here is information about IPO:',
+            sender: 'ai',
+            timestamp: new Date(),
+            pdf: IPDPDF
+          };
+        } else {
+          aiResponse = {
+            id: messages.length + 2,
+            text: `I received your message: "${inputValue}". This is a simulated response.`,
+            sender: 'ai',
+            timestamp: new Date()
+          };
+        }
+        
         setMessages(prev => [...prev, aiResponse]);
       }, 1000);
     }
@@ -99,6 +116,20 @@ const AskAnythingPage = () => {
       <div key={message.id} className={`message ${message.sender}`}>
         <div className="message-content">
           {message.text && <p>{message.text}</p>}
+          
+          {message.pdf && (
+            <div className="pdf-response">
+              <a href={message.pdf} target="_blank" rel="noopener noreferrer" className="pdf-link">
+                <div className="pdf-preview">
+                  <div className="pdf-icon">📄</div>
+                  <div className="pdf-info">
+                    <div className="pdf-name">ipo.pdf</div>
+                    <div className="pdf-desc">Click to view the IPO document</div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          )}
           
           {message.files && message.files.length > 0 && (
             <div className="message-files">

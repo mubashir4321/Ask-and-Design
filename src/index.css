@@ -12,6 +12,8 @@
   --accent-hover: #13b890;
   --input-bg: #1a1a1a;
   --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --primary-color: #10a37f;
+  --bg-hover: #2a2a2a;
   
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -66,12 +68,7 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--text-secondary);
 }
 
-.app {
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
+
 
 /* Button styles */
 button {

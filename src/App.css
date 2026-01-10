@@ -5,7 +5,58 @@
   background-color: var(--bg-primary);
   color: var(--text-primary);
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+}
+
+.main-content {
+  flex: 1;
+  margin-left: 260px; /* Width of the sidebar */
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.main-content-full-width {
+  flex: 1;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Adjust for mobile */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 70px; /* Width of the collapsed sidebar */
+    padding: 15px;
+  }
+  
+  .main-content-full-width {
+    padding: 15px;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+  .app {
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    width: 100%;
+    height: auto;
+    min-height: auto;
+    position: relative;
+  }
+  
+  .main-content {
+    margin-left: 0;
+    padding: 10px;
+  }
+  
+  .main-content-full-width {
+    padding: 10px;
+  }
 }
 
 /* Scrollbar styling */
