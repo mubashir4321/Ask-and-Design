@@ -1,4 +1,8 @@
 /* Main App Styles */
+:root {
+  /* Total vertical padding (top + bottom) applied to main content */
+  --app-padding-y: 40px;
+}
 .app {
   width: 100%;
   min-height: 100vh;
@@ -15,6 +19,16 @@
   padding: 20px;
   box-sizing: border-box;
   transition: margin-left 0.3s ease;
+}
+
+/* Full-screen layout for Ask Anything (chat) when sidebar is visible */
+.main-content.chat {
+  padding: 0;            /* remove padding to allow the chat to truly reach edges */
+  min-height: 100vh;
+  height: 100vh;
+  display: flex;         /* allow children to fill vertically */
+  flex-direction: column;
+  overflow: hidden;      /* ensure internal scroll happens in messages area */
 }
 
 .main-content-full-width {
@@ -34,8 +48,16 @@
   width: 100%;
 }
 
+/* Center the home route content vertically and horizontally */
+.main-content-full-width.home {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* Adjust for mobile */
 @media (max-width: 768px) {
+  :root { --app-padding-y: 30px; }
   .main-content {
     margin-left: 70px; /* Width of the collapsed sidebar */
     padding: 15px;
@@ -48,6 +70,7 @@
 
 /* Extra small devices */
 @media (max-width: 480px) {
+  :root { --app-padding-y: 20px; }
   .app {
     flex-direction: column;
   }

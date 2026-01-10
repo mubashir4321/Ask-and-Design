@@ -1,13 +1,13 @@
 .ask-anything-container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  max-width: 1000px;
-  margin: 0 auto;
+  height: 100%;
+  max-width: none;
+  margin: 0;
   padding: 20px;
   background-color: var(--bg-primary);
-  border-left: 1px solid var(--border-color);
-  border-right: 1px solid var(--border-color);
+  border-left: none;
+  border-right: none;
   width: 100%;
 }
 

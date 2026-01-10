@@ -3,7 +3,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  /* Subtract total vertical padding from main content to truly center vertically */
+  min-height: calc(100vh - var(--app-padding-y));
   width: 100%;
   padding: 20px;
   background-color: var(--bg-primary);
