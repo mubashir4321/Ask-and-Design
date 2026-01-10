@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FiPlus, FiMaximize, FiSend, FiX } from 'react-icons/fi';
+import IPOImage from '../assets/images/IPO.jpeg';
 import IPDPDF from '../assets/pdfs/ipo.pdf';
 import '../styles/AskAnythingPage.css';
 
@@ -36,32 +37,49 @@ const AskAnythingPage = () => {
       setFiles([]);
       setInputValue('');
 
-      // Simulate AI response after a delay
-      setTimeout(() => {
-        let aiResponse;
+      // Check if the question is about IPO
+      const isIPOQuestion = inputValue.toLowerCase().includes('ipo') || inputValue.toLowerCase().includes('what is ipo') || inputValue.toLowerCase().includes('what is ipo in image');
+      
+      if (isIPOQuestion && inputValue.toLowerCase().includes('what is ipo in image')) {
+        // For the specific image request, show the image
+        const aiResponse = {
+          id: messages.length + 2,
+          text: 'Here is the IPO image:',
+          sender: 'ai',
+          timestamp: new Date(),
+          image: IPOImage
+        };
         
-        // Check if the question is about IPO
-        const isIPOQuestion = inputValue.toLowerCase().includes('ipo') || inputValue.toLowerCase().includes('what is ipo');
+        setMessages(prev => [...prev, newUserMessage, aiResponse]);
+        setFiles([]);
+        setInputValue('');
+      } else if (isIPOQuestion) {
+        // For other IPO questions, show the PDF
+        const aiResponse = {
+          id: messages.length + 2,
+          text: 'Here is information about IPO:',
+          sender: 'ai',
+          timestamp: new Date(),
+          pdf: IPDPDF
+        };
         
-        if (isIPOQuestion) {
-          aiResponse = {
-            id: messages.length + 2,
-            text: 'Here is information about IPO:',
-            sender: 'ai',
-            timestamp: new Date(),
-            pdf: IPDPDF
-          };
-        } else {
-          aiResponse = {
+        setMessages(prev => [...prev, newUserMessage, aiResponse]);
+        setFiles([]);
+        setInputValue('');
+      } else {
+        // Simulate AI response after a delay
+        setTimeout(() => {
+          const aiResponse = {
             id: messages.length + 2,
             text: `I received your message: "${inputValue}". This is a simulated response.`,
             sender: 'ai',
             timestamp: new Date()
           };
-        }
-        
-        setMessages(prev => [...prev, aiResponse]);
-      }, 1000);
+          setMessages(prev => [...prev, newUserMessage, aiResponse]);
+          setFiles([]);
+          setInputValue('');
+        }, 1000);
+      }
     }
   };
 
@@ -128,6 +146,12 @@ const AskAnythingPage = () => {
                   </div>
                 </div>
               </a>
+            </div>
+          )}
+          
+          {message.image && (
+            <div className="image-response">
+              <img src={message.image} alt="IPO Information" style={{ maxWidth: '100%', height: 'auto', borderRadius: '8px', marginTop: '10px' }} />
             </div>
           )}
           
