@@ -125,6 +125,46 @@
   color: var(--text-secondary);
 }
 
+.image-response {
+  display: inline-block;
+  position: relative;
+}
+
+.image-wrapper {
+  display: inline-block;
+}
+
+.image-controls {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  gap: 5px;
+  z-index: 10;
+  margin-top: -25px;
+  margin-right: 10px;
+}
+
+.image-control-btn {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: black;
+  transition: all 0.2s ease;
+}
+
+.image-control-btn:hover {
+  background-color: var(--bg-tertiary);
+  transform: scale(1.1);
+}
+
 .message-files {
   margin-top: 8px;
   display: flex;

@@ -6,6 +6,7 @@ import '../styles/MakeDesignPage.css';
 const MakeDesignPage = () => {
   const [prompt, setPrompt] = useState('');
   const [isDesignGenerated, setIsDesignGenerated] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false); // Loading state
   const [designTitle, setDesignTitle] = useState('My New Design');
   const [designSubject, setDesignSubject] = useState('Creative Project');
   const [uploadedImage, setUploadedImage] = useState(null);
@@ -24,29 +25,36 @@ const MakeDesignPage = () => {
 
   const handlePromptSubmit = () => {
     if (prompt.trim()) {
-      // Generate design based on prompt
-      const lowerPrompt = prompt.toLowerCase();
+      // Set loading state
+      setIsGenerating(true);
+      
+      // Simulate thinking time like ChatGPT
+      setTimeout(() => {
+        // Generate design based on prompt
+        const lowerPrompt = prompt.toLowerCase();
 
-      // Set title and subject based on prompt
-      setDesignTitle(prompt.charAt(0).toUpperCase() + prompt.slice(1));
-      setDesignSubject('Generated from prompt');
+        // Set title and subject based on prompt
+        setDesignTitle(prompt.charAt(0).toUpperCase() + prompt.slice(1));
+        setDesignSubject('Generated from prompt');
 
-      // Generate design elements based on prompt keywords
-      if (lowerPrompt.includes('mobile app') || lowerPrompt.includes('app development')) {
-        // Show the mobile app poster image instead of text elements
-        setUploadedImage(MobileAppPoster);
-        setDesignElements([]); // Clear design elements to show only the image
-        setCustomWidth(400);
-        setCustomHeight(600);
-      } else {
-        // Default design for other prompts
-        setDesignElements([
-          { id: 1, type: 'text', content: prompt, x: 100, y: 100, fontSize: 36, color: '#ffffff' },
-          { id: 2, type: 'text', content: 'Creative Design', x: 100, y: 200, fontSize: 24, color: '#10a37f' }
-        ]);
-      }
+        // Generate design elements based on prompt keywords
+        if (lowerPrompt.includes('mobile app') || lowerPrompt.includes('app development')) {
+          // Show the mobile app poster image instead of text elements
+          setUploadedImage(MobileAppPoster);
+          setDesignElements([]); // Clear design elements to show only the image
+          setCustomWidth(400);
+          setCustomHeight(600);
+        } else {
+          // Default design for other prompts
+          setDesignElements([
+            { id: 1, type: 'text', content: prompt, x: 100, y: 100, fontSize: 36, color: '#ffffff' },
+            { id: 2, type: 'text', content: 'Creative Design', x: 100, y: 200, fontSize: 24, color: '#10a37f' }
+          ]);
+        }
 
-      setIsDesignGenerated(true);
+        setIsDesignGenerated(true);
+        setIsGenerating(false); // End loading state
+      }, 5000); // 5 second delay to simulate thinking
     }
   };
 
@@ -164,6 +172,15 @@ const MakeDesignPage = () => {
             </div>
             <h3>Describe Your Design</h3>
             <p>Enter a prompt to generate a custom design (e.g., "Make a mobile app development poster")</p>
+            
+            {isGenerating && (
+              <div className="thinking-indicator">
+                <div className="thinking-dot"></div>
+                <div className="thinking-dot"></div>
+                <div className="thinking-dot"></div>
+                <span>Generating your design...</span>
+              </div>
+            )}
 
             <div className="prompt-input-area">
               <textarea
@@ -173,27 +190,36 @@ const MakeDesignPage = () => {
                 placeholder="Describe the design you want to create..."
                 className="prompt-input"
                 rows={4}
+                disabled={isGenerating}
               />
 
               <button
                 className="generate-btn"
                 onClick={handlePromptSubmit}
-                disabled={!prompt.trim()}
+                disabled={!prompt.trim() || isGenerating}
               >
-                <FiSend /> Generate Design
+                {isGenerating ? (
+                  <>
+                    <div className="btn-spinner"></div> Generating...
+                  </>
+                ) : (
+                  <>
+                    <FiSend /> Generate Design
+                  </>
+                )}
               </button>
             </div>
 
             <div className="prompt-examples">
               <h4>Example prompts:</h4>
               <div className="example-chips">
-                <button onClick={() => setPrompt('Make a mobile app development poster')}>
+                <button onClick={() => setPrompt('Make a mobile app development poster')} disabled={isGenerating}>
                   Mobile app poster
                 </button>
-                <button onClick={() => setPrompt('Create a business presentation slide')}>
+                <button onClick={() => setPrompt('Create a business presentation slide')} disabled={isGenerating}>
                   Business presentation
                 </button>
-                <button onClick={() => setPrompt('Design a social media banner')}>
+                <button onClick={() => setPrompt('Design a social media banner')} disabled={isGenerating}>
                   Social media banner
                 </button>
               </div>

@@ -178,7 +178,17 @@ const AskAnythingPage = () => {
           
           {message.image && (
             <div className="image-response">
-              <img src={message.image} alt="IPO Information" style={{ maxWidth: '100%', height: 'auto', borderRadius: '8px', marginTop: '10px' }} />
+              <div className="image-wrapper">
+                <img src={message.image} alt="IPO Information" style={{ maxWidth: '100%', height: 'auto', borderRadius: '8px', marginTop: '10px' }} />
+              </div>
+              <div className="image-controls">
+                <button className="image-control-btn edit-btn" title="Edit Image">
+                  Edit
+                </button>
+                <button className="image-control-btn search-btn" title="Search Image">
+                  Search
+                </button>
+              </div>
             </div>
           )}
           
