@@ -54,7 +54,7 @@ const MakeDesignPage = () => {
 
         setIsDesignGenerated(true);
         setIsGenerating(false); // End loading state
-      }, 5000); // 5 second delay to simulate thinking
+      }, 7000); // 7 second delay to simulate thinking
     }
   };
 
