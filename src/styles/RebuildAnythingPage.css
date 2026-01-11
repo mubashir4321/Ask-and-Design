@@ -1,12 +1,13 @@
 .rebuild-anything-container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   max-width: 1600px;
   margin: 0 auto;
   padding: 20px;
   background-color: var(--bg-primary);
   width: 100%;
+  overflow-y: auto;
 }
 
 .rebuild-header {
@@ -130,7 +131,7 @@
   display: flex;
   gap: 20px;
   flex: 1;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .editor-controls {
@@ -355,6 +356,9 @@
   flex-direction: column;
   gap: 10px;
   margin-top: 15px;
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 5px;
 }
 
 .original-preview h4, .editing-tools h4 {
@@ -388,6 +392,7 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
   margin-top: 10px;
+  padding: 5px 0;
 }
 
 .tool-btn {
@@ -556,6 +561,8 @@
 
   .rebuild-editor {
     flex-direction: column;
+    overflow-y: auto;
+    max-height: calc(100vh - 150px);
   }
 
   .editor-preview {
@@ -576,13 +583,13 @@
   }
 
   .file-preview {
-    min-height: 150px;
+    min-height: 200px;
     padding: 10px;
   }
 
-  .file-preview {
-    min-height: 200px;
-    padding: 10px;
+  .editing-tools {
+    max-height: 250px;
+    overflow-y: auto;
   }
 
   .file-preview img {
