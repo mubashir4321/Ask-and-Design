@@ -151,7 +151,7 @@
   font-size: 0.9rem;
 }
 
-.title-input, .subject-input {
+.title-input, .subject-input, .prompt-textarea {
   width: 100%;
   padding: 10px;
   border: 1px solid var(--border-color);
@@ -161,6 +161,11 @@
   font-family: inherit;
   font-size: 1rem;
   margin-bottom: 10px;
+}
+
+.prompt-textarea {
+  resize: vertical;
+  min-height: 100px;
 }
 
 .file-info {

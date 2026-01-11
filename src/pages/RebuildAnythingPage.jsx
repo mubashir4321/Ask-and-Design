@@ -8,6 +8,7 @@ const RebuildAnythingPage = () => {
   const [fileType, setFileType] = useState('');
   const [designTitle, setDesignTitle] = useState('Rebuilt Design');
   const [designSubject, setDesignSubject] = useState('Redesigned Project');
+  const [designPrompt, setDesignPrompt] = useState('');
   const [exportFormat, setExportFormat] = useState('PNG');
   const [customWidth, setCustomWidth] = useState(1080);
   const [customHeight, setCustomHeight] = useState(720);
@@ -86,21 +87,6 @@ const RebuildAnythingPage = () => {
               Supports: JPG, PNG, PDF, PPT, DOC, and more
             </p>
           </div>
-          
-          <div className="recent-uploads">
-            <h4>Recent Versions</h4>
-            <div className="version-list">
-              {versionHistory.slice(0, 3).map(version => (
-                <div key={version.id} className="version-item">
-                  <div className="version-info">
-                    <span className="version-number">{version.version}</span>
-                    <span className="version-date">{version.date}</span>
-                  </div>
-                  <p className="version-description">{version.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
       )}
 
@@ -124,6 +110,17 @@ const RebuildAnythingPage = () => {
                 value={designSubject}
                 onChange={(e) => setDesignSubject(e.target.value)}
                 className="subject-input"
+              />
+            </div>
+
+            <div className="control-group">
+              <label>Prompt:</label>
+              <textarea
+                value={designPrompt}
+                onChange={(e) => setDesignPrompt(e.target.value)}
+                className="prompt-textarea"
+                placeholder="Enter your instructions for rebuilding this design..."
+                rows="4"
               />
             </div>
 
@@ -281,27 +278,7 @@ const RebuildAnythingPage = () => {
         </div>
       )}
 
-      {/* Version History Sidebar */}
-      {currentView !== 'upload' && (
-        <div className="version-sidebar">
-          <h4>Version History</h4>
-          <div className="full-version-list">
-            {versionHistory.map(version => (
-              <div key={version.id} className="version-item">
-                <div className="version-info">
-                  <span className="version-number">{version.version}</span>
-                  <span className="version-date">{version.date}</span>
-                </div>
-                <p className="version-description">{version.description}</p>
-                <div className="version-actions">
-                  <button className="use-version-btn">Use This</button>
-                  <button className="download-version-btn">Download</button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+
     </div>
   );
 };
