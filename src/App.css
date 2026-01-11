@@ -19,6 +19,7 @@
   padding: 20px;
   box-sizing: border-box;
   transition: margin-left 0.3s ease;
+  width: calc(100% - 260px);
 }
 
 /* Full-screen layout for Ask Anything (chat) when sidebar is visible */
@@ -61,8 +62,9 @@
   .main-content {
     margin-left: 70px; /* Width of the collapsed sidebar */
     padding: 15px;
+    width: calc(100% - 70px);
   }
-  
+
   .main-content-full-width {
     padding: 15px;
   }
@@ -74,21 +76,21 @@
   .app {
     flex-direction: column;
   }
-  
-  .sidebar {
-    width: 100%;
-    height: auto;
-    min-height: auto;
-    position: relative;
-  }
-  
+
   .main-content {
     margin-left: 0;
-    padding: 10px;
+    padding: 60px 10px 10px 10px;
+    width: 100%;
   }
-  
+
   .main-content-full-width {
-    padding: 10px;
+    padding: 60px 10px 10px 10px;
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .main-content.chat {
+    padding-top: 60px;
   }
 }
 

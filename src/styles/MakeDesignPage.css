@@ -1,22 +1,186 @@
 .make-design-container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   max-width: 1400px;
   margin: 0 auto;
   padding: 20px;
   background-color: var(--bg-primary);
   width: 100%;
+  box-sizing: border-box;
 }
 
 .design-header {
   margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
 }
 
 .design-header h2 {
   margin: 0;
   color: var(--text-primary);
   font-size: 1.5rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.new-design-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background-color: var(--accent-primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.new-design-btn:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-2px);
+}
+
+/* Prompt Section Styles */
+.prompt-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  padding: 20px;
+  flex: 1;
+}
+
+.prompt-prompt {
+  max-width: 700px;
+  width: 100%;
+  text-align: center;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 30px 20px;
+  box-sizing: border-box;
+}
+
+.prompt-icon {
+  color: var(--accent-primary);
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+.prompt-prompt h3 {
+  font-size: 1.8rem;
+  margin: 0 0 12px 0;
+  color: var(--text-primary);
+}
+
+.prompt-prompt > p {
+  color: var(--text-secondary);
+  margin-bottom: 25px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.prompt-input-area {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 25px;
+  width: 100%;
+}
+
+.prompt-input {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 1rem;
+  resize: vertical;
+  min-height: 100px;
+  box-sizing: border-box;
+}
+
+.prompt-input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+}
+
+.generate-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 30px;
+  background-color: var(--accent-primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.generate-btn:hover:not(:disabled) {
+  background-color: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 163, 127, 0.3);
+}
+
+.generate-btn:disabled {
+  background-color: var(--bg-tertiary);
+  color: var(--text-tertiary);
+  cursor: not-allowed;
+}
+
+.prompt-examples {
+  text-align: left;
+}
+
+.prompt-examples h4 {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin: 0 0 12px 0;
+  font-weight: 500;
+}
+
+.example-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.example-chips button {
+  padding: 8px 16px;
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.example-chips button:hover {
+  background-color: var(--accent-primary);
+  color: white;
+  border-color: var(--accent-primary);
+  transform: translateY(-1px);
 }
 
 .design-tabs {
@@ -228,6 +392,8 @@
   border-radius: 8px;
   padding: 20px;
   overflow: auto;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .canvas-header {
@@ -235,6 +401,8 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 15px;
+  width: 100%;
+  max-width: 800px;
 }
 
 .canvas-header h3 {
@@ -254,8 +422,9 @@
   margin: 0 auto;
   position: relative;
   overflow: hidden;
-  background-size: cover;
+  background-size: 100% 100%;
   background-position: center;
+  background-repeat: no-repeat;
 }
 
 .design-element {
@@ -356,34 +525,153 @@
   .design-editor {
     flex-direction: column;
   }
-  
+
   .design-controls {
     width: 100%;
   }
-  
+
   .make-design-container {
     padding: 15px;
+  }
+
+  .prompt-prompt h3 {
+    font-size: 1.5rem;
   }
 }
 
 @media (max-width: 768px) {
+  .make-design-container {
+    padding: 10px;
+  }
+
+  .design-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .design-header h2 {
+    font-size: 1.3rem;
+  }
+
+  .new-design-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .prompt-section {
+    padding: 15px 10px;
+    min-height: 300px;
+  }
+
+  .prompt-prompt {
+    padding: 20px 15px;
+  }
+
+  .prompt-prompt h3 {
+    font-size: 1.3rem;
+  }
+
+  .prompt-prompt > p {
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+  }
+
+  .prompt-icon svg {
+    width: 40px;
+    height: 40px;
+  }
+
+  .prompt-input {
+    font-size: 0.9rem;
+    padding: 12px;
+    min-height: 80px;
+  }
+
+  .generate-btn {
+    font-size: 1rem;
+    padding: 12px 24px;
+  }
+
+  .example-chips {
+    justify-content: center;
+  }
+
+  .example-chips button {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+
   .design-controls {
     padding: 15px;
   }
-  
+
   .size-inputs {
     flex-direction: column;
   }
-  
+
   .action-buttons {
     flex-direction: column;
   }
-  
+
   .preview-actions {
     flex-direction: column;
   }
-  
+
   .export-btn, .print-btn {
     width: 100%;
+  }
+
+  .canvas-area {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .make-design-container {
+    padding: 10px 5px;
+  }
+
+  .design-header {
+    margin-bottom: 15px;
+    padding-left: 50px;
+  }
+
+  .design-header h2 {
+    font-size: 1.1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+  }
+
+  .new-design-btn {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    gap: 5px;
+  }
+
+  .prompt-prompt h3 {
+    font-size: 1.2rem;
+  }
+
+  .prompt-prompt > p {
+    font-size: 0.8rem;
+  }
+
+  .prompt-examples h4 {
+    font-size: 0.8rem;
+  }
+
+  .example-chips {
+    gap: 8px;
+  }
+
+  .prompt-section {
+    padding: 10px 5px;
+  }
+
+  .prompt-prompt {
+    padding: 15px 10px;
   }
 }

@@ -503,20 +503,34 @@
   .rebuild-anything-container {
     padding: 15px;
   }
-  
+
   .editor-controls {
     padding: 15px;
   }
-  
+
   .size-inputs {
     flex-direction: column;
   }
-  
+
   .tools-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .action-buttons {
     flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .rebuild-header {
+    padding-left: 50px;
+  }
+
+  .rebuild-header h2 {
+    font-size: 1.1rem;
+  }
+
+  .rebuild-anything-container {
+    padding: 10px 5px;
   }
 }

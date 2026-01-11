@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
-import { FiUpload, FiDownload, FiPrinter, FiX, FiEye, FiEdit, FiPlus, FiMinus } from 'react-icons/fi';
+import React, { useState, useRef } from 'react';
+import { FiUpload, FiDownload, FiPrinter, FiX, FiEye, FiEdit, FiPlus, FiMinus, FiSend } from 'react-icons/fi';
+import MobileAppPoster from '../assets/images/app-develoment-poster.jpeg';
 import '../styles/MakeDesignPage.css';
 
 const MakeDesignPage = () => {
+  const [prompt, setPrompt] = useState('');
+  const [isDesignGenerated, setIsDesignGenerated] = useState(false);
   const [designTitle, setDesignTitle] = useState('My New Design');
   const [designSubject, setDesignSubject] = useState('Creative Project');
   const [uploadedImage, setUploadedImage] = useState(null);
@@ -15,6 +18,48 @@ const MakeDesignPage = () => {
     { id: 1, type: 'text', content: 'Your Creative Idea', x: 50, y: 50, fontSize: 24, color: '#ffffff' },
     { id: 2, type: 'shape', shape: 'rectangle', x: 100, y: 150, width: 200, height: 100, color: '#10a37f' }
   ]);
+  const fileInputRef = useRef(null);
+
+  const handlePromptSubmit = () => {
+    if (prompt.trim()) {
+      // Generate design based on prompt
+      const lowerPrompt = prompt.toLowerCase();
+
+      // Set title and subject based on prompt
+      setDesignTitle(prompt.charAt(0).toUpperCase() + prompt.slice(1));
+      setDesignSubject('Generated from prompt');
+
+      // Generate design elements based on prompt keywords
+      if (lowerPrompt.includes('mobile app') || lowerPrompt.includes('app development')) {
+        // Show the mobile app poster image instead of text elements
+        setUploadedImage(MobileAppPoster);
+        setDesignElements([]); // Clear design elements to show only the image
+        setCustomWidth(400);
+        setCustomHeight(600);
+      } else {
+        // Default design for other prompts
+        setDesignElements([
+          { id: 1, type: 'text', content: prompt, x: 100, y: 100, fontSize: 36, color: '#ffffff' },
+          { id: 2, type: 'text', content: 'Creative Design', x: 100, y: 200, fontSize: 24, color: '#10a37f' }
+        ]);
+      }
+
+      setIsDesignGenerated(true);
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handlePromptSubmit();
+    }
+  };
+
+  const handleNewDesign = () => {
+    setIsDesignGenerated(false);
+    setPrompt('');
+    setUploadedImage(null);
+  };
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
@@ -64,9 +109,60 @@ const MakeDesignPage = () => {
     <div className="make-design-container">
       <div className="design-header">
         <h2>Make Design</h2>
+        {isDesignGenerated && (
+          <button className="new-design-btn" onClick={handleNewDesign}>
+            <FiPlus /> New Design
+          </button>
+        )}
       </div>
 
-      <div className="design-tabs">
+      {!isDesignGenerated ? (
+        <div className="prompt-section">
+          <div className="prompt-prompt">
+            <div className="prompt-icon">
+              <FiEdit size={48} />
+            </div>
+            <h3>Describe Your Design</h3>
+            <p>Enter a prompt to generate a custom design (e.g., "Make a mobile app development poster")</p>
+
+            <div className="prompt-input-area">
+              <textarea
+                value={prompt}
+                onChange={(e) => setPrompt(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder="Describe the design you want to create..."
+                className="prompt-input"
+                rows={4}
+              />
+
+              <button
+                className="generate-btn"
+                onClick={handlePromptSubmit}
+                disabled={!prompt.trim()}
+              >
+                <FiSend /> Generate Design
+              </button>
+            </div>
+
+            <div className="prompt-examples">
+              <h4>Example prompts:</h4>
+              <div className="example-chips">
+                <button onClick={() => setPrompt('Make a mobile app development poster')}>
+                  Mobile app poster
+                </button>
+                <button onClick={() => setPrompt('Create a business presentation slide')}>
+                  Business presentation
+                </button>
+                <button onClick={() => setPrompt('Design a social media banner')}>
+                  Social media banner
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <>
+          <div className="design-tabs">
         <button 
           className={`tab-btn ${activeTab === 'design' ? 'active' : ''}`}
           onClick={() => setActiveTab('design')}
@@ -313,6 +409,8 @@ const MakeDesignPage = () => {
             </div>
           </div>
         </div>
+      )}
+        </>
       )}
     </div>
   );

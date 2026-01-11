@@ -408,18 +408,28 @@
     border-left: none;
     border-right: none;
   }
-  
+
   .chat-header h2 {
     font-size: 1.2rem;
   }
-  
+
   .message {
     max-width: 90%;
   }
-  
+
   .fullscreen-modal {
     width: 95%;
     margin: 20px;
     padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .chat-header {
+    padding-left: 50px;
+  }
+
+  .chat-header h2 {
+    font-size: 1.1rem;
   }
 }
