@@ -18,6 +18,8 @@ const MakeDesignPage = () => {
     { id: 1, type: 'text', content: 'Your Creative Idea', x: 50, y: 50, fontSize: 24, color: '#ffffff' },
     { id: 2, type: 'shape', shape: 'rectangle', x: 100, y: 150, width: 200, height: 100, color: '#10a37f' }
   ]);
+  const [showRefinePrompt, setShowRefinePrompt] = useState(false);
+  const [refinePrompt, setRefinePrompt] = useState('');
   const fileInputRef = useRef(null);
 
   const handlePromptSubmit = () => {
@@ -59,6 +61,39 @@ const MakeDesignPage = () => {
     setIsDesignGenerated(false);
     setPrompt('');
     setUploadedImage(null);
+    setShowRefinePrompt(false);
+    setRefinePrompt('');
+  };
+
+  const handleRefineDesign = () => {
+    if (refinePrompt.trim()) {
+      // Apply refinements based on the new prompt
+      const lowerPrompt = refinePrompt.toLowerCase();
+      
+      if (lowerPrompt.includes('add text')) {
+        addDesignElement('text');
+      } else if (lowerPrompt.includes('change') || lowerPrompt.includes('update')) {
+        // Update title or subject based on prompt
+        setDesignSubject(refinePrompt);
+      } else {
+        // Add new text element with the prompt content
+        setDesignElements((prevElements) => [
+          ...prevElements,
+          {
+            id: prevElements.length + 1000,
+            type: 'text',
+            content: refinePrompt,
+            x: 100 + (prevElements.length * 20),
+            y: 100 + (prevElements.length * 30),
+            fontSize: 20,
+            color: '#ffffff'
+          }
+        ]);
+      }
+      
+      setRefinePrompt('');
+      setShowRefinePrompt(false);
+    }
   };
 
   const handleImageUpload = (e) => {
@@ -110,9 +145,14 @@ const MakeDesignPage = () => {
       <div className="design-header">
         <h2>Make Design</h2>
         {isDesignGenerated && (
-          <button className="new-design-btn" onClick={handleNewDesign}>
-            <FiPlus /> New Design
-          </button>
+          <div className="header-buttons">
+            <button className="refine-design-btn" onClick={() => setShowRefinePrompt(!showRefinePrompt)}>
+              <FiEdit /> Refine Design
+            </button>
+            <button className="new-design-btn" onClick={handleNewDesign}>
+              <FiPlus /> New Design
+            </button>
+          </div>
         )}
       </div>
 
@@ -176,6 +216,45 @@ const MakeDesignPage = () => {
           <FiEye /> Preview
         </button>
       </div>
+
+      {showRefinePrompt && (
+        <div className="refine-prompt-section">
+          <h4>Refine Your Design</h4>
+          <div className="refine-input-area">
+            <textarea
+              value={refinePrompt}
+              onChange={(e) => setRefinePrompt(e.target.value)}
+              onKeyPress={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault();
+                  handleRefineDesign();
+                }
+              }}
+              placeholder="Enter changes you want to make (e.g., 'Add text Welcome to our app')"
+              className="refine-input"
+              rows={3}
+            />
+            <div className="refine-buttons">
+              <button
+                className="apply-refine-btn"
+                onClick={handleRefineDesign}
+                disabled={!refinePrompt.trim()}
+              >
+                <FiSend /> Apply Changes
+              </button>
+              <button
+                className="cancel-refine-btn"
+                onClick={() => {
+                  setShowRefinePrompt(false);
+                  setRefinePrompt('');
+                }}
+              >
+                <FiX /> Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {activeTab === 'design' && (
         <div className="design-editor">
