@@ -7,7 +7,7 @@ const RebuildAnythingPage = () => {
   const [fileName, setFileName] = useState('');
   const [fileType, setFileType] = useState('');
   const [designTitle, setDesignTitle] = useState('Rebuilt Design');
-  const [designSubject, setDesignSubject] = useState('Rebuilt Design');
+  const [designSubject, setDesignSubject] = useState('Redesigned Project');
   const [designPrompt, setDesignPrompt] = useState('');
   const [exportFormat, setExportFormat] = useState('PNG');
   const [customWidth, setCustomWidth] = useState(1080);
